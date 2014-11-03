@@ -1,0 +1,27 @@
+doctype 5
+html(ng-app)
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/javascripts/angular.min.js')
+        script(src='/javascripts/socket.io.js')
+        script(src='/javascripts/engine.js',type='text/javascript')
+    body
+        block content
+
+        a(href='/auth/twitter') login twitter.
+        .content(ng-controller='TestApp')
+
+            ul(style="list-style:none;")
+                li(ng-repeat="tag in tags")
+                    input(type="checkbox", ng-model="tag.done")
+                    span(class="done-{{tag.text}}") {{tag.text}} {{tag.count}}
+
+            form(ng-submit="deleteTag()")
+                input(class="btn-primary", type="submit", value="delete the checked item")
+            form(ng-submit="addTag()")
+                input(type="text", ng-model="tagText", size="80", placeholder="add new string here") 
+                input(class="btn-primary", type="submit", value="add")
+
+            div(ng-repeat='t in twitts')
+                p(style='color:{{t.color}}') {{t.user.screen_name}}: {{t.text}}
